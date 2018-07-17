@@ -1,0 +1,11 @@
+[Unit]
+Description=BIRD Internet Routing Daemon (IPv6)
+After=network.target syslog.target
+
+[Service]
+ExecStartPre=/usr/local/sbin/bird6 -p -c /etc/bird6/bird6.conf
+ExecReload=/usr/local/sbin/birdc6 configure
+ExecStart=/usr/local/sbin/bird6 -f -c /etc/bird6/bird6.conf
+
+[Install]
+WantedBy=multi-user.target

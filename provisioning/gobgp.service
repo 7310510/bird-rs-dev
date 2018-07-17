@@ -1,0 +1,13 @@
+[Unit]
+Description=GoBGP daemon
+After=network.target syslog.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/gobgpd -f /etc/gobgp/gobgpd.yaml
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

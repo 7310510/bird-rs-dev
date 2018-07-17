@@ -1,0 +1,20 @@
+global:
+  config:
+    as:                     65002
+    router-id:              10.0.0.2
+neighbors:
+  - config:
+      neighbor-address:     10.0.0.100
+      peer-as:              65100
+      auth-password:        password
+    transport:
+      config:
+        passive-mode:       false
+  - config:
+      neighbor-address:     2001:db8::100
+      peer-as:              65100
+      auth-password:        password
+    transport:
+      config:
+        passive-mode:       false
+
