@@ -3,7 +3,7 @@ Vagrantfile for BIRD Route Server development.
 
 # Environment
 ## Requirements
-* Memory 3G~
+* Memory 4G~
 
 ## Network Construction
 ```
@@ -67,7 +67,7 @@ sudo birdc6
 
 ## Play
 
-You can use gobgp{1,2,3,4} as route server clients.<br>
+You can use gobgp{1|2|3} as route server clients, and gobgp4 as customer of gobgp1.<br>
 Refer `gobgp` comamnd [here](https://github.com/osrg/gobgp/blob/master/docs/sources/cli-command-syntax.md).
 
 ```
