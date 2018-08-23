@@ -5,7 +5,8 @@ Vagrant.configure(2) do |config|
   config.vm.define :bird do |bird|
     bird.vm.box = "bento/debian-9.4"
     bird.vm.network "private_network", virtualbox__intnet: "ix_nw1", auto_config: false
-      bird.vm.provider "virtualbox" do |v|
+    bird.vm.synced_folder "./", "/vagrant", owner: "vagrant", group: "vagrant"
+    bird.vm.provider "virtualbox" do |v|
         v.cpus = 2
         v.memory = 2048
       end
