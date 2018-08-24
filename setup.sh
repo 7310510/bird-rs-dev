@@ -3,7 +3,7 @@
 echo "# get gobgp"
 mkdir gobgp
 cd gobgp
-wget https://github.com/osrg/gobgp/releases/download/v1.33/gobgp_1.33_linux_amd64.tar.gz
+curl -L -O https://github.com/osrg/gobgp/releases/download/v1.33/gobgp_1.33_linux_amd64.tar.g
 tar zxvf gobgp_1.33_linux_amd64.tar.gz
 
 echo "# exec vagrant up"
