@@ -11,9 +11,10 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
       end
     bird.vm.provision "shell", privileged: true, inline: <<-EOS
-      # jp
+      # Apt
       apt-get update
       apt-get install -y git vim autoconf flex bison libncurses-dev libreadline-gplv2-dev build-essential
+      # Network
       echo "auto eth1"               >  /etc/network/interfaces.d/eth1
       echo "iface eth1 inet static"  >> /etc/network/interfaces.d/eth1
       echo " address 10.0.0.100"     >> /etc/network/interfaces.d/eth1
@@ -22,6 +23,7 @@ Vagrant.configure(2) do |config|
       echo " address 2001:db8::100"  >> /etc/network/interfaces.d/eth1
       echo " netmask 64"             >> /etc/network/interfaces.d/eth1
       ifup eth1
+      # BIRD
       cp /vagrant/provisioning/bird.service /etc/systemd/system
       cp /vagrant/provisioning/bird6.service /etc/systemd/system
       ln -s /vagrant/provisioning/bird /etc/bird
@@ -51,8 +53,10 @@ Vagrant.configure(2) do |config|
         v.memory = 512
       end
       gobgp.vm.provision "shell", privileged: true, inline: <<-EOS
+        # Apt
         apt-get update
         apt-get install -y git vim
+        # GoBGP
         cp /vagrant/gobgp/gobgp /usr/local/bin
         cp /vagrant/gobgp/gobgpd /usr/local/bin
         cp /vagrant/provisioning/gobgp.service /etc/systemd/system
@@ -60,6 +64,7 @@ Vagrant.configure(2) do |config|
       EOS
       if [1, 2, 3].include?(i) then
         gobgp.vm.provision "shell", privileged: true, inline: <<-EOS
+          # Network
           echo "auto eth1"               >  /etc/network/interfaces.d/eth1
           echo "iface eth1 inet static"  >> /etc/network/interfaces.d/eth1
           echo " address 10.0.0.#{i}"    >> /etc/network/interfaces.d/eth1
@@ -73,6 +78,7 @@ Vagrant.configure(2) do |config|
       if [1, 4].include?(i) then
         gobgp.vm.network "private_network", virtualbox__intnet: "pni_nw1", auto_config: false
         gobgp.vm.provision "shell", privileged: true, inline: <<-EOS
+          # Network
           echo "auto eth2"                 >  /etc/network/interfaces.d/eth2
           echo "iface eth2 inet static"    >> /etc/network/interfaces.d/eth2
           echo " address 10.0.1.#{i}"      >> /etc/network/interfaces.d/eth2
