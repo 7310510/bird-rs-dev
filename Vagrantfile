@@ -11,6 +11,9 @@ Vagrant.configure(2) do |config|
         v.memory = 2048
       end
     bird.vm.provision "shell", privileged: true, inline: <<-EOS
+      # Hostname
+      echo bird > /etc/hostname
+      hostname bird
       # Apt
       apt-get update
       apt-get install -y git vim autoconf flex bison libncurses-dev libreadline-gplv2-dev build-essential
@@ -53,6 +56,9 @@ Vagrant.configure(2) do |config|
         v.memory = 512
       end
       gobgp.vm.provision "shell", privileged: true, inline: <<-EOS
+        # Hostname
+        echo gobgp#{i} > /etc/hostname
+        hostname gobgp#{i}
         # Apt
         apt-get update
         apt-get install -y git vim
